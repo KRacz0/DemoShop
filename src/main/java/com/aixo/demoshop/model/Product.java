@@ -14,6 +14,11 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_size_id", referencedColumnName = "category_size_id")
+    private CategorySize categorySize;
+
     private double price;
     private double restock;
     private String description;

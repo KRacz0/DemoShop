@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Category {
+public class CategorySize {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id")
+    @Column(name = "category_size_id")
     private int id;
     private String name;
 }
