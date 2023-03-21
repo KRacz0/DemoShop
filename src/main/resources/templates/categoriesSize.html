@@ -52,7 +52,7 @@
 
     <tr th:each="category, iStat : ${categories_size}">
       <th scope="row" th:text="${iStat.index + 1}">1</th>
-      <td th:text="${category.name}">Larry</td>
+      <td th:text="${category.name}"></td>
 
       <td><a href="" th:href="@{/admin/categoriesSize/delete/{id}(id=${category.id})}" class="btn btn-danger">Delete</a></td>
       <td><a href="" th:href="@{/admin/categoriesSize/update/{id}(id=${category.id})}" class="btn btn-warning">Update</a></td>

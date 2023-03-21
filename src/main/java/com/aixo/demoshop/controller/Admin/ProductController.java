@@ -88,7 +88,7 @@ public class ProductController {
         productDTO.setCategoryId((product.getCategory().getId()));
         productDTO.setCategorySizeId(product.getCategorySize().getId());
         productDTO.setPrice(product.getPrice());
-        productDTO.setRestock((product.getRestock()));
+        productDTO.setRestock(product.getRestock());
         productDTO.setDescription(product.getDescription());
         productDTO.setImageName(product.getImageName());
 
