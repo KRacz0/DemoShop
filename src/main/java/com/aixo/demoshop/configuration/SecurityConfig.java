@@ -20,27 +20,25 @@ public class SecurityConfig {
     GoogleOAuth2SuccessHandler googleOAuth2SuccessHandler;
     @Autowired
     CustomUserDetailService customUserDetailService;
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests((authorize) ->
                 {
                     try {
-                        authorize//.requestMatchers("/", "register/**", "/shop/**", "h2-console/**").permitAll()
+                        authorize.requestMatchers("/", "register/**", "/shop/**", "h2-console/**").permitAll()
+                                .requestMatchers("/", "/login", "/oauth/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                                 .and()
-                                .formLogin()
-                                .loginPage("/login")
-                                .permitAll()
-                                .failureUrl("/login?error= true")
-                                .defaultSuccessUrl("/")
-                                .usernameParameter("email")
-                                .passwordParameter("password")
-                                .and()
                                 .oauth2Login()
                                 .loginPage("/login")
+                                .userInfoEndpoint()
+                                .userService(customOAuth2UserService)
+                                .and()
                                 .successHandler(googleOAuth2SuccessHandler)
                                 .and()
                                 .logout()
@@ -53,25 +51,27 @@ public class SecurityConfig {
                                 .and()
                                 .csrf()
                                 .disable();
-                                http.headers().frameOptions().disable();
+                        http.headers().frameOptions().disable();
 
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 });
-        return null;
+        return http.build();
     }
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
+   /*
+   @Autowired
+
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailService);
-    }
+    }*/
 
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().requestMatchers("/resources/**", "/static/**", "/images/**", "productimgaes/**", "/css/**", "/js/**");
+        web.ignoring().requestMatchers("/resources/**", "/static/**", "/images/**", "productImages/**", "/css/**", "/js/**");
     }
 }
