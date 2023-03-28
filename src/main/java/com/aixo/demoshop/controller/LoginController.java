@@ -1,5 +1,6 @@
 package com.aixo.demoshop.controller;
 
+import com.aixo.demoshop.global.GlobalCart;
 import com.aixo.demoshop.model.Role;
 import com.aixo.demoshop.model.User;
 import com.aixo.demoshop.repository.RoleRepository;
@@ -27,6 +28,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(){
+        GlobalCart.cart.clear();
         return "login";
     }
 //    @PostMapping("/login")
