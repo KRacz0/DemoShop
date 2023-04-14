@@ -4,6 +4,8 @@ import com.aixo.demoshop.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -28,8 +30,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                 {
                     try {
-                        authorize.requestMatchers("/", "register/**", "/shop/**", "h2-console/**").permitAll()
+                        authorize.requestMatchers("/", "/register/**","/register", "/shop/**", "h2-console/**").permitAll()
                                 .requestMatchers("/", "/login", "/oauth/**").permitAll()
+                                .requestMatchers("/cart/**").hasAnyRole("USER","openid") // we know user loged in with google have role user and openid so they will be able to access this
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated()
@@ -48,9 +51,12 @@ public class SecurityConfig {
                                 .deleteCookies("JSESSIONID")
                                 .and()
                                 .exceptionHandling()
+                                .and().formLogin().loginPage("/login")
+                                .successHandler(new MyAuthenticationSuccessHandler())
                                 .and()
                                 .csrf()
                                 .disable();
+
                         http.headers().frameOptions().disable();
 
                     } catch (Exception e) {
@@ -64,12 +70,19 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-   /*
-   @Autowired
 
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailService);
-    }*/
+    /*@Bean
+     public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+        return auth.userDetailsService(customUserDetailService).passwordEncoder(bCryptPasswordEncoder()).and().build();
+     }*/
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(customUserDetailService);
+        authProvider.setPasswordEncoder(bCryptPasswordEncoder());
+
+        return authProvider;
+    }
 
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().requestMatchers("/resources/**", "/static/**", "/images/**", "productImages/**", "/css/**", "/js/**");

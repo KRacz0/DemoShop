@@ -31,10 +31,6 @@ public class LoginController {
         GlobalCart.cart.clear();
         return "login";
     }
-//    @PostMapping("/login")
-//    public String postLogin(){
-//        return "login";
-//    }
     @GetMapping("/register")
     public String registerGet(){
         return "register";
@@ -44,7 +40,7 @@ public class LoginController {
         String password = user.getPassword();
         user.setPassword(bCryptPasswordEncoder.encode(password));
         List<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.findById(2).get());
+        roles.add(roleRepository.findByName("ROLE_USER"));
         user.setRoles(roles);
         userRepository.save(user);
         request.login(user.getEmail(), password);

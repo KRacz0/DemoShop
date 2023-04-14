@@ -20,9 +20,9 @@ public class HomeController {
     ProductService productService;
 
     @GetMapping({"/", "/home"})
-        public String home(Model model){
-            model.addAttribute("cartCount", GlobalCart.cart.size());
-            return "index";
+    public String home(Model model){
+        model.addAttribute("cartCount", GlobalCart.cart.size());
+        return "index";
     }
     @GetMapping("/shop")
     public String shop(Model model){

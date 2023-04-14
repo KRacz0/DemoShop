@@ -4,6 +4,7 @@ import com.aixo.demoshop.global.GlobalCart;
 import com.aixo.demoshop.model.Product;
 import com.aixo.demoshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,8 @@ public class CartController {
     }
 
     @GetMapping("/cart")
-    public String cartGet(Model model) {
+    public String cartGet(Model model, Authentication authentication) {
+        // System.out.println(authentication.getPrincipal().toString());
         model.addAttribute("cartCount", GlobalCart.cart.size());
         model.addAttribute("total", GlobalCart.cart.stream().mapToDouble(Product::getPrice).sum());
         model.addAttribute("cart", GlobalCart.cart);

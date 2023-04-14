@@ -1,5 +1,6 @@
 package com.aixo.demoshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -33,8 +34,9 @@ public class User {
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-                    inverseJoinColumns = {@JoinColumn (name = "ROLE_ID", referencedColumnName = "ID")}
+            inverseJoinColumns = {@JoinColumn (name = "ROLE_ID", referencedColumnName = "ID")}
     )
+    @JsonIgnoreProperties(value = {"users"},allowGetters = true)
     private List<Role> roles;
 
     public User(User user) {
