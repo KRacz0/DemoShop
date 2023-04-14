@@ -68,6 +68,6 @@ public class GoogleOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             user.setRoles(roles);
             userRepository.save(user);
         }*/
-        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/cart");
+        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/shop");
     }
 }

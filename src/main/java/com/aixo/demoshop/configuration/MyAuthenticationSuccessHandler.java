@@ -19,7 +19,7 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
         if(user.getAuthorities().stream().map(a ->a.getAuthority()).filter(a ->a.equals("ROLE_ADMIN")).findFirst().isPresent()){
             redirectStrategy.sendRedirect(request, response, "/admin");
         }else{
-            redirectStrategy.sendRedirect(request, response, "/cart");
+            redirectStrategy.sendRedirect(request, response, "/shop");
         }
     }
 }

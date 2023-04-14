@@ -30,9 +30,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                 {
                     try {
-                        authorize.requestMatchers("/", "/register/**","/register", "/shop/**", "h2-console/**").permitAll()
+                        authorize.requestMatchers("/", "/register/**","/register","/shop", "/shop/**", "h2-console/**").permitAll()
                                 .requestMatchers("/", "/login", "/oauth/**").permitAll()
-                                .requestMatchers("/cart/**").hasAnyRole("USER","openid") // we know user loged in with google have role user and openid so they will be able to access this
+                                .requestMatchers("/cart/**").hasAnyRole("USER","openid")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated()

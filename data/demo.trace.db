@@ -1,0 +1,32 @@
+2023-04-14 12:27:46 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Błąd składniowy w wyrażeniu SQL "SELECT * FROM USER_ROLE USERS [*]PRODUCT"
+Syntax error in SQL statement "SELECT * FROM USER_ROLE USERS [*]PRODUCT"; SQL statement:
+SELECT * FROM USER_ROLE USERS PRODUCT [42000-214]
+2023-04-14 12:27:57 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Błąd składniowy w wyrażeniu SQL "SELECT * FROM PRODUCT ROLES [*]PRODUCT"
+Syntax error in SQL statement "SELECT * FROM PRODUCT ROLES [*]PRODUCT"; SQL statement:
+SELECT * FROM PRODUCT ROLES PRODUCT [42000-214]
+2023-04-14 12:54:02 jdbc[15]: null
+org.h2.message.DbException: Połączenie zostało zamknięte przez aplikacje i zostało usunięte przez kolektor nieużytków
+The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:190)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:132)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: Połączenie zostało zamknięte przez aplikacje i zostało usunięte przez kolektor nieużytków
+The connection was not closed by the application and is garbage collected [90018-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:678)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 16 more

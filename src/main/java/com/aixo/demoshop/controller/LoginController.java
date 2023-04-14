@@ -31,6 +31,7 @@ public class LoginController {
         GlobalCart.cart.clear();
         return "login";
     }
+
     @GetMapping("/register")
     public String registerGet(){
         return "register";
@@ -44,6 +45,6 @@ public class LoginController {
         user.setRoles(roles);
         userRepository.save(user);
         request.login(user.getEmail(), password);
-        return "redirect:/";
+        return "redirect:/shop";
     }
 }

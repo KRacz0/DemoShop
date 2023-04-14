@@ -53,7 +53,7 @@ public class OnAppStartUp implements ApplicationListener<ApplicationStartedEvent
         if(userRepository.findByEmail("admin@admin").isEmpty() ){
             User user = new User();
             user.setEmail("admin@admin");
-            user.setRoles(Arrays.asList(role,roleAdmin));
+            user.setRoles(Arrays.asList(roleAdmin,roleOpenId));
             user.setFirstName("admin");
             user.setLastName("admin");
             user.setPassword(passwordEncoder.encode("admin"));
